@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const exphbs  = require('express-handlebars');
+const exphbs  = require('handlebars');
 const methodOverride = require('method-override');
 const flash = require('connect-flash');
 const session = require('express-session');
@@ -10,8 +10,6 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-// Load routes
-const msg = require('./routes/msg');
 const users = require('./routes/users');
 
 // Passport Config
@@ -65,26 +63,8 @@ app.use(function(req, res, next){
 });
 
 //express 404 middleware
-
-
-// Index Route
-app.get('/', (req, res) => {
-  const title = 'Welcome';
-  res.render('index', {
-    title: title
-  });
-});
-app.get('/about', (req, res) => {
-  res.render('about');
-});
-
-// Use routes
-app.use('/msg', msg);
-app.use('/users', users);
-
 app.use(function(req, res) {
   res.status(404);
-  res.render('msg/none');
 });
 
 const port = 5000;
